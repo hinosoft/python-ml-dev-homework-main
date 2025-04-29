@@ -86,24 +86,24 @@ The API provides a JSON response containing the original ingredient ID and a lis
 Example Response
 ```
 {
-    "ingredient_id": "ing_001",
-    "substitutes": [
-        {
-            "id": "ing_003",
-            "ingredient_name": "Heirloom Tomato",
-            "similarity": 24.7832
-        },
-        {
-            "id": "ing_006",
-            "ingredient_name": "Organic Spinach",
-            "similarity": 26.4537
-        },
-        {
-            "id": "ing_018",
-            "ingredient_name": "Red Bell Pepper",
-            "similarity": 28.7291
-        }
-    ]
+  "ingredient_id": "ing_003",
+  "substitutes": [
+    {
+      "id": "ing_003",
+      "ingredient_name": "Heirloom Tomato",
+      "similarity": 0
+    },
+    {
+      "id": "ing_068",
+      "ingredient_name": "Apple Cider Vinegar",
+      "similarity": 22.8699951171875
+    },
+    {
+      "id": "ing_013",
+      "ingredient_name": "Fresh Lemon Juice",
+      "similarity": 28.5699996948242
+    }
+  ]
 }
 
 ```
