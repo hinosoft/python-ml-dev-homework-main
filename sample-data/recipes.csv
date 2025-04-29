@@ -685,3 +685,5 @@ recipe_id,recipe_name,ingredient_id,ingredient_name,quantity_in_grams,recipe_typ
 89,Sweet Potato Breakfast Hash,15,Sea Salt,4,Breakfast,American
 89,Sweet Potato Breakfast Hash,11,Black Pepper Powder,2,Breakfast,American
 89,Sweet Potato Breakfast Hash,39,Smoked Paprika,3,Breakfast,American
+90,Test Recipe,3,Heirloom Tomato,100,Soup,Asian
+90,Test Recipe,6,Organic Spinach,50,Soup,Asian
