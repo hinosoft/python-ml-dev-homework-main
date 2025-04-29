@@ -7,7 +7,38 @@ We expect this should take a senior developer 2 - 3 hours to complete. And anoth
 We dont want you spending more than 4 hours on this. If you are unable to complete within this time, please submit what you have completed with details of how you would have finished or optimised it if you had more time.
 
 ---
+## OVERVIEW
+This FastAPI-based application provides a backend service for creating, calculating nutrition and cost of recipes, and suggesting ingredient substitutes based on nutritional analysis.
+## RUN
+### Run with Python
+```
+pip install -r requirements.txt
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+### Run with Docker
+```
+docker build -t fastapi-app .
+docker run -d -p 8000:8000 fastapi-app
+```
+### Run with Docker Compose
+```
+docker-compose up --build
+```
+### API Endpoints:
 
+#### `POST /recipes/`
+– Create a new recipe
+
+#### `GET /recipes/{id}/` 
+– Retrieve recipe details, cost, and nutrition
+
+#### `GET /ingredients/{id}/substitutes/` 
+– Suggest substitutes based on nutrition
+
+### test
+```
+pytest
+```
 ## Assignment
 
 We would like you to design a small backend service to: 
