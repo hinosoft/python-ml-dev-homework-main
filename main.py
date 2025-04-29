@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from database import get_recipe_by_id, add_recipe, find_substitutes
+from database import get_recipe_by_id, add_recipe, find_substitutes, find_nearest_neighbors
 from utils import calculate_total_cost, calculate_nutrition
 
 app = FastAPI()
@@ -33,7 +33,7 @@ async def get_recipe(recipe_id: int):
         "nutrition": nutrition
     }
 
-@app.get("/ingredients/{ingredient_id}/substitutes/")
+@app.get("/v1/ingredients/{ingredient_id}/substitutes/")
 async def get_substitutes(ingredient_id: str):
     substitutes = find_substitutes(ingredient_id)
 
@@ -41,3 +41,16 @@ async def get_substitutes(ingredient_id: str):
         raise HTTPException(status_code=404, detail="No substitutes found")
 
     return {"ingredient_id": ingredient_id, "substitutes": substitutes}
+
+
+# API trả về danh sách nguyên liệu thay thế
+@app.get("/ingredients/{ingredient_id}/substitutes/")
+async def get_substitutes(ingredient_id: str):
+    substitutes = find_nearest_neighbors(ingredient_id)
+    if not substitutes:
+        raise HTTPException(status_code=404, detail="No substitutes found")
+    
+    return {
+        "ingredient_id": ingredient_id,
+        "substitutes": substitutes
+    }

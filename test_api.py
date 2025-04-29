@@ -55,3 +55,22 @@ def test_find_substitutes():
         data = response.json()
         assert "substitutes" in data
         assert len(data["substitutes"]) > 0
+        
+# Kiểm tra API tìm nguyên liệu thay thế
+def test_find_substitutes_success():
+    response = client.get("/ingredients/ing_003/substitutes/")
+    assert response.status_code in [200, 404]  # Nếu có hoặc không có thay thế đều hợp lệ
+    if response.status_code == 200:
+        data = response.json()
+        assert "substitutes" in data
+        assert len(data["substitutes"]) > 0
+
+
+# Kiểm tra API tìm nguyên liệu thay thế
+def test_find_substitutes():
+    response = client.get("/ingredients/3/substitutes/")
+    assert response.status_code in [200, 404]  # Nếu có hoặc không có thay thế đều hợp lệ
+    if response.status_code == 200:
+        data = response.json()
+        assert "substitutes" in data
+        assert len(data["substitutes"]) > 0

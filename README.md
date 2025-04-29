@@ -32,7 +32,7 @@ docker-compose up --build
 #### `GET /recipes/{id}/` 
 – Retrieve recipe details, cost, and nutrition
 
-#### `GET /ingredients/{id}/substitutes/` 
+#### `GET /v1/ingredients/{id}/substitutes/` 
 – Suggest substitutes based on nutrition
 
 ### test
@@ -48,8 +48,65 @@ We would like you to design a small backend service to:
 3. Find substitute ingredients based on similarity
 
 ---
+## Task 2: Suggest Ingredient Substitutes
 
+### Add a basic substitute suggestion endpoint:
+- **GET /ingredients/{id}/substitutes/**
+  - Return 2-3 possible substitutes for an ingredient based on a similar nutrition profile (e.g., similar name, brand, calories or macros).
+  - You can use any ML techniques to get the best matches. **Use of any LLM API is strictly prohibited**
+  - (Optional) Create a test with one of the recipes utilizing this API
 ## What's Provided?
+
+### Problem Approach
+To identify the most suitable substitute ingredients from a large dataset, we employed the Approximate Nearest Neighbors (ANN) technique using the Faiss library by Facebook. This method is designed to efficiently handle high-dimensional data and rapidly find the nearest neighbors in terms of nutritional values, even in datasets exceeding millions of rows.
+
+#### Data Preparation:
+
+Nutritional data for each ingredient (e.g., energy, carb, protein, fat, sugar, water, fiber) was extracted and converted into feature vectors.
+
+All feature vectors were normalized to ensure uniformity in the calculation of distances.
+
+#### Index Construction:
+
+The Faiss IndexFlatL2 algorithm was utilized, which computes approximate nearest neighbors based on Euclidean distance in high-dimensional space.
+
+The feature vectors were added to the index, making it efficient to query for neighbors without requiring traditional training.
+
+Substitution Recommendation:
+
+For a given ingredient, its nutritional vector was compared to all other ingredient vectors in the index.
+
+The top 2–3 nearest neighbors were selected as substitutes, based on their similarity scores (lower Euclidean distance implies higher similarity).
+
+A similarity score, calculated as the distance metric, was also included in the results for transparency.
+
+### API Response
+The API provides a JSON response containing the original ingredient ID and a list of the most suitable substitute ingredients.
+
+Example Response
+```
+{
+    "ingredient_id": "ing_001",
+    "substitutes": [
+        {
+            "id": "ing_003",
+            "ingredient_name": "Heirloom Tomato",
+            "similarity": 24.7832
+        },
+        {
+            "id": "ing_006",
+            "ingredient_name": "Organic Spinach",
+            "similarity": 26.4537
+        },
+        {
+            "id": "ing_018",
+            "ingredient_name": "Red Bell Pepper",
+            "similarity": 28.7291
+        }
+    ]
+}
+
+```
 
 A very simple database containing ingredients with nutrition information and recipes which use these ingredients.
 
