@@ -22,8 +22,9 @@ jobs:
 
       - name: Install dependencies
         run: |
+          pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest
+          pip install pytest uvicorn
 
       - name: Run tests
         run: pytest
@@ -35,6 +36,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest uvicorn
+
       - name: Start FastAPI in Codespaces
         run: |
           uvicorn main:app --host 0.0.0.0 --port 8000 --reload
